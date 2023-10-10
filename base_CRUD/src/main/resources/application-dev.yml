@@ -1,0 +1,41 @@
+server:
+  port: ${SERVER_HOST:8092}
+  compression:
+    enabled: true
+spring:
+  application:
+    name: base_crud
+  main:
+    allow-bean-definition-overriding: true
+  task:
+    scheduling:
+      pool:
+        size: 5
+  web:
+    locale: en
+  jpa:
+    database-platform: org.hibernate.dialect.PostgresSQLDialect
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: false
+        default_batch_fetch_size: 1000
+  datasource:
+    primary:
+      driver-class-name: org.postgresql.Driver
+      url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/postgres}
+      username: ${APPUSER_NAME:postgres}
+      password: ${SECRET_APPUSER_PASSWORD:123456}
+    servlet:
+      multipart:
+        max-request-size: 10MB
+        max-file-size: 10MB
+jwt:
+  secret: ${SECRET_JWT_USER_KEY:no_key}
+  type: JWT
+  header: "Authorization"
+  prefix: "Bearer "
+  expire-time-access-token: 1800000 #30minutes
+  expire-time-refresh-token: 86400000 #1day
